@@ -19,6 +19,14 @@ class DBServer {
     const transactions = await Transaction.find({});
     return transactions;
   }
+  async getCategoryData(category) {
+    const categoryTransactions = await Transaction.find({ category });
+    return categoryTransactions;
+  }
+  async getDataByVendor(vendor) {
+    const categoryTransactions = await Transaction.find({ vendor });
+    return categoryTransactions;
+  }
 
   async saveData(transaction) {
     const newTransaction = new Transaction(transaction);

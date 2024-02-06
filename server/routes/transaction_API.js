@@ -1,15 +1,57 @@
 const express = require("express");
 const router = express.Router();
 const DBServer = require("../bank-DB-Server");
-const { port } = require("dotenv").config();
+const {
+  noTransactionFound,
+  savedTransaction,
+  canNotDelete,
+} = require("../../constants");
 
 const dbServer = new DBServer();
 
-router.get("/transaction", async function (req, res) {
+router.get("/", async function (req, res) {
   try {
-    res.send("hello");
+    const transactions = await dbServer.getData();
+    res.send(transactions);
   } catch (error) {
-    res.send({ error: "no hello" });
+    res.send({ error: noTransactionFound });
   }
 });
+
+router.get("/one/:vendor", async function (req, res) {
+  try {
+    const transaction = await dbServer.getDataByVendor(req.params.vendor);
+    res.send(transaction[0]);
+  } catch (error) {
+    res.send({ error: noTransactionFound });
+  }
+});
+
+router.get("/:category", async function (req, res) {
+  try {
+    const transaction = await dbServer.getCategoryData(req.params.category);
+    res.send(transaction);
+  } catch (error) {
+    res.send({ error: noTransactionFound });
+  }
+});
+
+router.post("/", async function (req, res) {
+  try {
+    const savedTransaction = await dbServer.saveData(req.body);
+    res.send(savedTransaction);
+  } catch (error) {
+    res.send({ error: noTransactionToAdd });
+  }
+});
+
+router.delete("/:vendor", async function (req, res) {
+  try {
+    const deletedTransaction = await dbServer.deleteData(req.params.vendor);
+    res.send(deletedTransaction);
+  } catch (error) {
+    res.send({ error: canNotDelete });
+  }
+});
+
 module.exports = router;
