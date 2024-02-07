@@ -21,7 +21,7 @@ router.get("/", async function (req, res) {
 router.get("/one/:vendor", async function (req, res) {
   try {
     const transaction = await dbServer.getDataByVendor(req.params.vendor);
-    res.send(transaction[0]);
+    res.send(transaction);
   } catch (error) {
     res.send({ error: noTransactionFound });
   }

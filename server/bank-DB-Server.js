@@ -10,8 +10,8 @@ class DBServer {
       .catch((err) => console.log(err));
   }
 
-  async deleteData(vendor) {
-    const deletedTransaction = await Transaction.findOneAndDelete({ vendor });
+  async deleteData(id) {
+    const deletedTransaction = await Transaction.findOneAndDelete({ _id: id });
     return deletedTransaction;
   }
 
