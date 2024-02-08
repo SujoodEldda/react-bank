@@ -2,7 +2,14 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
-export default function NewCard({ category, amount }) {
+export default function NewCard({ category, amount, onMouseOver, onMouseOut }) {
+  const handleMouseOver = () => {
+    onMouseOver(category);
+  };
+
+  const handleMouseOut = () => {
+    onMouseOut();
+  };
   return (
     <Card
       sx={{
@@ -22,7 +29,9 @@ export default function NewCard({ category, amount }) {
           color: "#455a64",
         }}
       >
-        {category}: {amount}
+        <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+          {category}: {amount}
+        </div>
       </Typography>
     </Card>
   );
