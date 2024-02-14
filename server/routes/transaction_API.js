@@ -45,6 +45,18 @@ router.post("/", async function (req, res) {
   }
 });
 
+router.put("/:transactionID", async function (req, res) {
+  try {
+    const transactions = await dbServer.changeAmount(
+      req.params.transactionID,
+      req.body.amount
+    );
+    res.send(transactions);
+  } catch (error) {
+    res.send({ error: noTransactionFound });
+  }
+});
+
 router.delete("/:vendor", async function (req, res) {
   try {
     const deletedTransaction = await dbServer.deleteData(req.params.vendor);

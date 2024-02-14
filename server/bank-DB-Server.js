@@ -33,6 +33,13 @@ class DBServer {
     newTransaction.save();
     return newTransaction;
   }
+  async changeAmount(id, amount) {
+    const changedTransaction = Transaction.findOneAndUpdate(
+      { _id: id },
+      { amount }
+    );
+    return changedTransaction;
+  }
 }
 
 module.exports = DBServer;

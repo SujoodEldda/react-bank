@@ -12,10 +12,14 @@ export default function Operations({ handleBalance }) {
   const [vendor, setVendor] = useState(null);
   const [amount, setAmount] = useState(null);
   const [open, setOpen] = useState(false);
+  const [description, setDescription] = useState(null);
   const [mess, setMess] = useState("You should fill all the fields above!");
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
+  };
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
   };
 
   const handleVendorChange = (event) => {
@@ -62,7 +66,7 @@ export default function Operations({ handleBalance }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ amount, vendor, category }),
+      body: JSON.stringify({ amount, vendor, category, description }),
     }).then((response) => console.log(response));
     handleBalance(amount);
     successMess("depositing");
@@ -79,7 +83,7 @@ export default function Operations({ handleBalance }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ amount: -amount, vendor, category }),
+      body: JSON.stringify({ amount: -amount, vendor, category, description }),
     }).then((response) => console.log(response));
     handleBalance(-amount);
     successMess("withdrawing");
@@ -118,6 +122,13 @@ export default function Operations({ handleBalance }) {
               variant="standard"
               value={category}
               onChange={handleCategoryChange}
+            />
+            <TextField
+              id="transaction-description"
+              label="Transaction description"
+              variant="standard"
+              value={description}
+              onChange={handleDescriptionChange}
             />
           </Typography>
           <Button

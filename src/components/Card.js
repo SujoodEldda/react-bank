@@ -30,7 +30,7 @@ export default function NewCard({ category, amount, onMouseOver, onMouseOut }) {
         }}
       >
         <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-          {category}: {amount}
+          {category}: {amount}$
         </div>
       </Typography>
     </Card>
